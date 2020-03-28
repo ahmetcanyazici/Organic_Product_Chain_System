@@ -1,0 +1,59 @@
+﻿@model OrganikUrunZincirTakip.Models.Depolama
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Depolama</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DepolamaYer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepolamaYer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepolamaTarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepolamaTarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepolamaAcıklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepolamaAcıklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Denetleme.DenetlemeAcıklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Denetleme.DenetlemeAcıklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DepolamaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

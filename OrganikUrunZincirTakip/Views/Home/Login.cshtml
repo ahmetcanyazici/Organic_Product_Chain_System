@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/login.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                @*<img src="https://www.b-cube.in/wp-content/uploads/2014/05/aditya-300x177.jpg" id="icon" alt="User Icon" />*@
+                <img src="~/img/organikdomdom.jpg" id="icon" alt="User Icon"/>
+                <h1>Organik Ürün Zincir Takip Sistemi</h1>
+            </div>
+            <!-- Login Form -->
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                <input type="text" id="Username" class="fadeIn second" name="Username" placeholder="username">
+                <input type="password" id="Password" class="fadeIn third" name="Password" placeholder="password">
+                if (ViewBag.Message != null)
+                {
+                    <span style="color:red;">@Convert.ToString(ViewBag.Message)</span>
+                }
+                <input type="submit" class="fadeIn fourth" value="Log In">
+                <a href="/Home/Index" class="btn btn-danger">Satışların Detayına Git<i class="glyphicon glyphicon-arrow-right"></i></a>
+            }
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Go to the Site</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

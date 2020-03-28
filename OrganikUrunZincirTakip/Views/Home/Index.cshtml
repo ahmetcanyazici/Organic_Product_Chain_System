@@ -1,0 +1,132 @@
+﻿@model OrganikUrunZincirTakip.Models.Sati
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Satiş Detayını Görüntüle</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sati</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SatısID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SatısID, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ara" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null && Model.User != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SatısTarih)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SatisAcıklama)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.TeslimalimYer)
+            </th>
+            <th>
+                <label>Satıcı</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.NakliyeAcıklama)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.TeslimalimYer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.TeslimedimYer)
+            </th>
+            <th>
+                <label>Nakliyeci</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.Depolama.DepolamaTarih)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.Depolama.DepolamaAcıklama)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.Depolama.DepolamaYer)
+            </th>
+            <th>
+               <label>Depocu</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nakliye.Depolama.Denetleme.DenetlemeAcıklama)
+            </th>
+            <th>
+               <label>Denetleyici</label>
+            </th>
+            <th></th>
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.SatısTarih)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.SatisAcıklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.TeslimalimYer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.User.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.NakliyeAcıklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.TeslimalimYer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.TeslimedimYer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.User.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.DepolamaTarih)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.DepolamaAcıklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.DepolamaYer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.User.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.Denetleme.DenetlemeAcıklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Nakliye.Depolama.Denetleme.User.Username)
+            </td>
+        </tr>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </table>
+}

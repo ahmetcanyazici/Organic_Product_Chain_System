@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="302fffa4a7d44c74b62510650004d25a" Name="Diagram1">
+        <EntityTypeShape EntityType="OrganikUrunDBModel.Denetleme" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganikUrunDBModel.Depolama" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganikUrunDBModel.Nakliye" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganikUrunDBModel.Role" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganikUrunDBModel.Sati" Width="1.5" PointX="12" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganikUrunDBModel.User" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Denetleme_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Depolama_Denetleme" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Depolama_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Nakliye_Depolama" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Nakliye_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Satis_Nakliye" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="OrganikUrunDBModel.FK_Satis_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

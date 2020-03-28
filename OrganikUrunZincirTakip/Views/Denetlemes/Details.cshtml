@@ -1,0 +1,43 @@
+﻿@model OrganikUrunZincirTakip.Models.Denetleme
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Denetleme</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SertifikaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SertifikaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DenetlemeAcıklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DenetlemeAcıklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DenetlemeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

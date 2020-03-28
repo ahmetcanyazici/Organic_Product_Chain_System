@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OrganikUrunZincirTakip.Models.Sati>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SatısTarih)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SatisAcıklama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nakliye.TeslimalimYer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SatısTarih)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SatisAcıklama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nakliye.TeslimalimYer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SatısID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SatısID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SatısID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,51 @@
+﻿@model OrganikUrunZincirTakip.Models.Sati
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sati</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SatısTarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SatısTarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SatisAcıklama)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SatisAcıklama)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nakliye.TeslimalimYer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nakliye.TeslimalimYer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SatısID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

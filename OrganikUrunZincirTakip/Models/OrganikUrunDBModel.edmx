@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OrganikUrunDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Denetleme">
+          <Key>
+            <PropertyRef Name="DenetlemeID" />
+          </Key>
+          <Property Name="DenetlemeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SertifikaID" Type="int" />
+          <Property Name="DenetlemeAcıklama" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Depolama">
+          <Key>
+            <PropertyRef Name="DepolamaID" />
+          </Key>
+          <Property Name="DepolamaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DenetlemeID" Type="int" Nullable="false" />
+          <Property Name="DepolamaYer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepolamaTarih" Type="date" Nullable="false" />
+          <Property Name="DepolamaAcıklama" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nakliye">
+          <Key>
+            <PropertyRef Name="NakliyeID" />
+          </Key>
+          <Property Name="NakliyeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepolamaID" Type="int" Nullable="false" />
+          <Property Name="TeslimalimYer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeslimedimYer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="NakliyeAcıklama" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Satis">
+          <Key>
+            <PropertyRef Name="SatısID" />
+          </Key>
+          <Property Name="SatısID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NakliyeID" Type="int" Nullable="false" />
+          <Property Name="SatısTarih" Type="date" Nullable="false" />
+          <Property Name="SatisAcıklama" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Denetleme_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Denetleme" Type="Self.Denetleme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Denetleme">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Depolama_Denetleme">
+          <End Role="Denetleme" Type="Self.Denetleme" Multiplicity="1" />
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Denetleme">
+              <PropertyRef Name="DenetlemeID" />
+            </Principal>
+            <Dependent Role="Depolama">
+              <PropertyRef Name="DenetlemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Depolama_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Depolama">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nakliye_Depolama">
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="1" />
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Depolama">
+              <PropertyRef Name="DepolamaID" />
+            </Principal>
+            <Dependent Role="Nakliye">
+              <PropertyRef Name="DepolamaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nakliye_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Nakliye">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satis_Nakliye">
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="1" />
+          <End Role="Satis" Type="Self.Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nakliye">
+              <PropertyRef Name="NakliyeID" />
+            </Principal>
+            <Dependent Role="Satis">
+              <PropertyRef Name="NakliyeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satis_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Satis" Type="Self.Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Satis">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OrganikUrunDBModelStoreContainer">
+          <EntitySet Name="Denetleme" EntityType="Self.Denetleme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Depolama" EntityType="Self.Depolama" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nakliye" EntityType="Self.Nakliye" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Satis" EntityType="Self.Satis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Denetleme_User" Association="Self.FK_Denetleme_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Denetleme" EntitySet="Denetleme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Depolama_Denetleme" Association="Self.FK_Depolama_Denetleme">
+            <End Role="Denetleme" EntitySet="Denetleme" />
+            <End Role="Depolama" EntitySet="Depolama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Depolama_User" Association="Self.FK_Depolama_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Depolama" EntitySet="Depolama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nakliye_Depolama" Association="Self.FK_Nakliye_Depolama">
+            <End Role="Depolama" EntitySet="Depolama" />
+            <End Role="Nakliye" EntitySet="Nakliye" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nakliye_User" Association="Self.FK_Nakliye_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Nakliye" EntitySet="Nakliye" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satis_Nakliye" Association="Self.FK_Satis_Nakliye">
+            <End Role="Nakliye" EntitySet="Nakliye" />
+            <End Role="Satis" EntitySet="Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satis_User" Association="Self.FK_Satis_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Satis" EntitySet="Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OrganikUrunDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Denetleme">
+          <Key>
+            <PropertyRef Name="DenetlemeID" />
+          </Key>
+          <Property Name="DenetlemeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SertifikaID" Type="Int32" />
+          <Property Name="DenetlemeAcıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Denetleme_User" FromRole="Denetleme" ToRole="User" />
+          <NavigationProperty Name="Depolamas" Relationship="Self.FK_Depolama_Denetleme" FromRole="Denetleme" ToRole="Depolama" />
+        </EntityType>
+        <EntityType Name="Depolama">
+          <Key>
+            <PropertyRef Name="DepolamaID" />
+          </Key>
+          <Property Name="DepolamaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DenetlemeID" Type="Int32" Nullable="false" />
+          <Property Name="DepolamaYer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepolamaTarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DepolamaAcıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Denetleme" Relationship="Self.FK_Depolama_Denetleme" FromRole="Depolama" ToRole="Denetleme" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Depolama_User" FromRole="Depolama" ToRole="User" />
+          <NavigationProperty Name="Nakliyes" Relationship="Self.FK_Nakliye_Depolama" FromRole="Depolama" ToRole="Nakliye" />
+        </EntityType>
+        <EntityType Name="Nakliye">
+          <Key>
+            <PropertyRef Name="NakliyeID" />
+          </Key>
+          <Property Name="NakliyeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepolamaID" Type="Int32" Nullable="false" />
+          <Property Name="TeslimalimYer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeslimedimYer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NakliyeAcıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Depolama" Relationship="Self.FK_Nakliye_Depolama" FromRole="Nakliye" ToRole="Depolama" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Nakliye_User" FromRole="Nakliye" ToRole="User" />
+          <NavigationProperty Name="Satis" Relationship="Self.FK_Satis_Nakliye" FromRole="Nakliye" ToRole="Satis" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Sati">
+          <Key>
+            <PropertyRef Name="SatısID" />
+          </Key>
+          <Property Name="SatısID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NakliyeID" Type="Int32" Nullable="false" />
+          <Property Name="SatısTarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SatisAcıklama" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Nakliye" Relationship="Self.FK_Satis_Nakliye" FromRole="Satis" ToRole="Nakliye" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Satis_User" FromRole="Satis" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Denetlemes" Relationship="Self.FK_Denetleme_User" FromRole="User" ToRole="Denetleme" />
+          <NavigationProperty Name="Depolamas" Relationship="Self.FK_Depolama_User" FromRole="User" ToRole="Depolama" />
+          <NavigationProperty Name="Nakliyes" Relationship="Self.FK_Nakliye_User" FromRole="User" ToRole="Nakliye" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Satis" Relationship="Self.FK_Satis_User" FromRole="User" ToRole="Satis" />
+        </EntityType>
+        <Association Name="FK_Denetleme_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Denetleme" Type="Self.Denetleme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Denetleme">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Depolama_Denetleme">
+          <End Role="Denetleme" Type="Self.Denetleme" Multiplicity="1" />
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Denetleme">
+              <PropertyRef Name="DenetlemeID" />
+            </Principal>
+            <Dependent Role="Depolama">
+              <PropertyRef Name="DenetlemeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Depolama_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Depolama">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nakliye_Depolama">
+          <End Role="Depolama" Type="Self.Depolama" Multiplicity="1" />
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Depolama">
+              <PropertyRef Name="DepolamaID" />
+            </Principal>
+            <Dependent Role="Nakliye">
+              <PropertyRef Name="DepolamaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nakliye_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Nakliye">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satis_Nakliye">
+          <End Role="Nakliye" Type="Self.Nakliye" Multiplicity="1" />
+          <End Role="Satis" Type="Self.Sati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nakliye">
+              <PropertyRef Name="NakliyeID" />
+            </Principal>
+            <Dependent Role="Satis">
+              <PropertyRef Name="NakliyeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satis_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Satis" Type="Self.Sati" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Satis">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OrganikUrunDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Denetlemes" EntityType="Self.Denetleme" />
+          <EntitySet Name="Depolamas" EntityType="Self.Depolama" />
+          <EntitySet Name="Nakliyes" EntityType="Self.Nakliye" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Satis" EntityType="Self.Sati" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Denetleme_User" Association="Self.FK_Denetleme_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Denetleme" EntitySet="Denetlemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Depolama_Denetleme" Association="Self.FK_Depolama_Denetleme">
+            <End Role="Denetleme" EntitySet="Denetlemes" />
+            <End Role="Depolama" EntitySet="Depolamas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Depolama_User" Association="Self.FK_Depolama_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Depolama" EntitySet="Depolamas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nakliye_Depolama" Association="Self.FK_Nakliye_Depolama">
+            <End Role="Depolama" EntitySet="Depolamas" />
+            <End Role="Nakliye" EntitySet="Nakliyes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nakliye_User" Association="Self.FK_Nakliye_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Nakliye" EntitySet="Nakliyes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satis_Nakliye" Association="Self.FK_Satis_Nakliye">
+            <End Role="Nakliye" EntitySet="Nakliyes" />
+            <End Role="Satis" EntitySet="Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satis_User" Association="Self.FK_Satis_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Satis" EntitySet="Satis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OrganikUrunDBModelStoreContainer" CdmEntityContainer="OrganikUrunDBContext">
+          <EntitySetMapping Name="Denetlemes">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.Denetleme">
+              <MappingFragment StoreEntitySet="Denetleme">
+                <ScalarProperty Name="DenetlemeID" ColumnName="DenetlemeID" />
+                <ScalarProperty Name="SertifikaID" ColumnName="SertifikaID" />
+                <ScalarProperty Name="DenetlemeAcıklama" ColumnName="DenetlemeAcıklama" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Depolamas">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.Depolama">
+              <MappingFragment StoreEntitySet="Depolama">
+                <ScalarProperty Name="DepolamaID" ColumnName="DepolamaID" />
+                <ScalarProperty Name="DenetlemeID" ColumnName="DenetlemeID" />
+                <ScalarProperty Name="DepolamaYer" ColumnName="DepolamaYer" />
+                <ScalarProperty Name="DepolamaTarih" ColumnName="DepolamaTarih" />
+                <ScalarProperty Name="DepolamaAcıklama" ColumnName="DepolamaAcıklama" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nakliyes">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.Nakliye">
+              <MappingFragment StoreEntitySet="Nakliye">
+                <ScalarProperty Name="NakliyeID" ColumnName="NakliyeID" />
+                <ScalarProperty Name="DepolamaID" ColumnName="DepolamaID" />
+                <ScalarProperty Name="TeslimalimYer" ColumnName="TeslimalimYer" />
+                <ScalarProperty Name="TeslimedimYer" ColumnName="TeslimedimYer" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="NakliyeAcıklama" ColumnName="NakliyeAcıklama" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satis">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.Sati">
+              <MappingFragment StoreEntitySet="Satis">
+                <ScalarProperty Name="SatısID" ColumnName="SatısID" />
+                <ScalarProperty Name="NakliyeID" ColumnName="NakliyeID" />
+                <ScalarProperty Name="SatısTarih" ColumnName="SatısTarih" />
+                <ScalarProperty Name="SatisAcıklama" ColumnName="SatisAcıklama" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OrganikUrunDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

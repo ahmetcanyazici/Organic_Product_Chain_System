@@ -1,0 +1,64 @@
+﻿@model IEnumerable<OrganikUrunZincirTakip.Models.Nakliye>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TeslimalimYer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeslimedimYer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NakliyeAcıklama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Depolama.DepolamaYer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeslimalimYer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeslimedimYer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tarih)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NakliyeAcıklama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Depolama.DepolamaYer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NakliyeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NakliyeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NakliyeID })
+        </td>
+    </tr>
+}
+
+</table>
